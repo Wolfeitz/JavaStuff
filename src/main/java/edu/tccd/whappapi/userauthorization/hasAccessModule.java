@@ -1,17 +1,19 @@
 package edu.tccd.whappapi.userauthorization;
 
-public class hasAccessModule {
-    private final boolean isPermitted;
-    private int colleagueId;
-    private String module;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
-    public hasAccessModule(boolean isPermitted) {
-        this.isPermitted = isPermitted;
-    }
-    public hasAccessModule(boolean isPermitted, int colleagueId) {
-        this.isPermitted = isPermitted;
-        this.colleagueId = colleagueId;
-    }
+public class hasAccessModule {
+    private Boolean isPermitted = false;
+    private Integer colleagueId = 0;
+    private String module = "";
+
+//    public hasAccessModule(boolean isPermitted) {
+//        this.isPermitted = isPermitted;
+//    }
+//    public hasAccessModule(boolean isPermitted, int colleagueId) {
+//        this.isPermitted = isPermitted;
+//        this.colleagueId = colleagueId;
+//    }
 
     public hasAccessModule(boolean isPermitted, int colleagueId, String module) {
     this.isPermitted = isPermitted;
@@ -20,11 +22,11 @@ public class hasAccessModule {
     }
 
 
-    public boolean getPermitted() {
+    public Boolean getPermitted() {
         return isPermitted;
     }
 
-    public int getColleagueId () {
+    public Integer getColleagueId () {
         return colleagueId;
     }
 
