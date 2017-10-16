@@ -18,7 +18,9 @@ public class AccessModuleController {
         /* determine access based upon colleagueID & module
         query API here */
         if(colleagueid == 0){ module = "mmenu";}
-        return new AccessModule(isAllowed(colleagueid, module), colleagueid, module);
+
+        edu.tccd.whappapi.business.gidget g = new edu.tccd.whappapi.business.gidget();
+        return new AccessModule(g.isAllowed(colleagueid, module), colleagueid, module);
     }
 
     @RequestMapping("hasAccess/byUser")
@@ -35,11 +37,25 @@ public class AccessModuleController {
         return list;
     }
 
+    @RequestMapping("hasAccess/byMod")
+    public ArrayList<AccessModule> checkModuleAccess(@RequestParam(value = "mod") String module) {
+        /* determine all access to a module based upon mod identifier */
+        ArrayList<AccessModule> list = new ArrayList<>();
+        list.add(new AccessModule(true, 1000001, module));
+        list.add(new AccessModule(true, 1000002, module));
+        list.add(new AccessModule(true, 1000003, module));
+        list.add(new AccessModule(true, 1000004, module));
+        list.add(new AccessModule(true, 1000005, module));
+        list.add(new AccessModule(true, 1000006, module));
+        return list;
+    }
+
     @RequestMapping("grantAccess")
     public AccessModule grantAccess(@RequestParam(value = "cid") Integer colleagueid, @RequestParam(value = "mod") String module)    {
 
         //module used for granting access to resources
         return new AccessModule(true, 1111, "not yet implemented");
+        //this needs to be logged
     }
 
     @RequestMapping("removeAccess")
@@ -47,10 +63,8 @@ public class AccessModuleController {
 
         //module used for granting access to resources
         return new AccessModule(false, 1212, Thread.currentThread().getStackTrace()[1].getMethodName());
+        //this needs to be logged
     }
 
-    private Boolean isAllowed(int cid, String mod){
-        //we would be using the cid and mod against the db here
-        return (cid % 2 == 0);
-    }
+
 }
